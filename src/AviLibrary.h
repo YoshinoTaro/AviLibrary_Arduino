@@ -36,8 +36,8 @@ private:
   bool m_initialized;
   uint32_t m_movi_size;
   uint32_t m_start_time;
-  uint8_t  m_width;
-  uint8_t  m_height;
+  uint16_t m_width;
+  uint16_t m_height;
   uint32_t m_frames;
   uint32_t m_total_size;
   uint8_t  m_fps;
