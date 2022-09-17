@@ -37,10 +37,18 @@ bool AviLibrary::begin(File& aviFile, uint16_t width, uint16_t height) {
 
 bool AviLibrary::writeHeader() {
   if (!m_initialized || m_frames != 0) return false;
-  m_avi_header[64] = (uint8_t)( m_width  & 0x0f );
-  m_avi_header[65] = (uint8_t)((m_width  & 0xf0) >> 8);
-  m_avi_header[68] = (uint8_t)( m_height & 0x0f );
-  m_avi_header[69] = (uint8_t)((m_height & 0xf0) >> 8);
+  uint8_t width_1   = (uint8_t)( m_width  & 0x00ff); 
+  uint8_t width_2   = (uint8_t)((m_width  & 0xff00) >> 8); 
+  uint8_t height_1  = (uint8_t)( m_height & 0x00ff);
+  uint8_t height_2  = (uint8_t)((m_height & 0xff00) >> 8); 
+  m_avi_header[ 64] = width_1;
+  m_avi_header[ 65] = width_2;
+  m_avi_header[ 68] = height_1;
+  m_avi_header[ 69] = height_2;
+  m_avi_header[168] = width_1;
+  m_avi_header[169] = width_2;
+  m_avi_header[172] = height_1;
+  m_avi_header[173] = height_2;
   m_aviFile.write(m_avi_header, AVI_OFFSET);
   return true;
 }
